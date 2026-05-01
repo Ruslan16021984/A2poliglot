@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.carbit3333333.a2bulgary.ui.lessons.LessonScreen
+import com.carbit3333333.a2bulgary.ui.lessons.LessonSessionScreen
 import com.carbit3333333.a2bulgary.ui.lessons.LessonsScreen
 
 @Composable
@@ -38,6 +39,25 @@ fun AppNavGraph() {
             val lessonId = backStackEntry.arguments?.getInt("lessonId") ?: 0
 
             LessonScreen(
+                lessonId = lessonId,
+                onBackClick = { navController.popBackStack() },
+                onStartExerciseClick = { id ->
+                    navController.navigate(Destinations.lessonSessionRoute(id))
+                },
+            )
+        }
+
+        composable(
+            route = "${Destinations.LESSON_SESSION}/{lessonId}",
+            arguments = listOf(
+                navArgument("lessonId") {
+                    type = NavType.IntType
+                }
+            ),
+        ) { backStackEntry ->
+            val lessonId = backStackEntry.arguments?.getInt("lessonId") ?: 0
+
+            LessonSessionScreen(
                 lessonId = lessonId,
                 onBackClick = { navController.popBackStack() },
             )

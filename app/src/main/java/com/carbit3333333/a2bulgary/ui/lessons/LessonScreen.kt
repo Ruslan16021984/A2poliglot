@@ -34,6 +34,7 @@ import com.carbit3333333.a2bulgary.viewmodel.LessonViewModel
 fun LessonScreen(
     lessonId: Int,
     onBackClick: () -> Unit,
+    onStartExerciseClick: (Int) -> Unit = {},
     viewModel: LessonViewModel = viewModel(
         factory = LessonViewModel.provideFactory(
             LocalContext.current.applicationContext as Application
@@ -49,6 +50,7 @@ fun LessonScreen(
     LessonScreenContent(
         uiState = uiState,
         onBackClick = onBackClick,
+        onStartExerciseClick = onStartExerciseClick,
     )
 }
 
@@ -56,6 +58,7 @@ fun LessonScreen(
 fun LessonScreenContent(
     uiState: LessonUiState,
     onBackClick: () -> Unit,
+    onStartExerciseClick: (Int) -> Unit = {},
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -102,6 +105,16 @@ fun LessonScreenContent(
                                 style = MaterialTheme.typography.titleMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
+
+                            if (lesson.id == 2) {
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Button(
+                                    onClick = { onStartExerciseClick(lesson.id) },
+                                    modifier = Modifier.fillMaxWidth(),
+                                ) {
+                                    Text("Начать упражнения")
+                                }
+                            }
                         }
 
                         items(lesson.theory) { block ->
@@ -159,6 +172,7 @@ private fun LessonScreenPreview() {
                 ),
             ),
             onBackClick = {},
+            onStartExerciseClick = {},
         )
     }
 }
