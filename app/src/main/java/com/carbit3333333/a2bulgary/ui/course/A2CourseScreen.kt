@@ -1,19 +1,24 @@
 package com.carbit3333333.a2bulgary.ui.course
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,8 +31,20 @@ import com.carbit3333333.a2bulgary.course.LessonUnit
 @Composable
 fun A2CourseScreen(
     units: List<LessonUnit>,
+    selectedUnit: LessonUnit?,
+    onLessonOpen: (LessonUnit) -> Unit,
+    onBackToCourse: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    if (selectedUnit != null) {
+        LessonDetailScreen(
+            unit = selectedUnit,
+            onBack = onBackToCourse,
+            modifier = modifier,
+        )
+        return
+    }
+
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
@@ -44,7 +61,10 @@ fun A2CourseScreen(
             }
 
             items(units) { unit ->
-                LessonCard(unit = unit)
+                LessonCard(
+                    unit = unit,
+                    onClick = { onLessonOpen(unit) },
+                )
             }
         }
     }
@@ -82,13 +102,18 @@ private fun CourseHeader(lessonCount: Int) {
 }
 
 @Composable
-private fun LessonCard(unit: LessonUnit) {
+private fun LessonCard(
+    unit: LessonUnit,
+    onClick: () -> Unit,
+) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -125,6 +150,14 @@ private fun LessonCard(unit: LessonUnit) {
                 color = MaterialTheme.colorScheme.secondary,
                 fontWeight = FontWeight.Medium,
             )
+
+            if (unit.practiceTasks.isNotEmpty()) {
+                Text(
+                    text = "Открыть урок",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.tertiary,
+                )
+            }
         }
     }
 }
@@ -167,6 +200,154 @@ private fun LessonSection(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )
+        }
+    }
+}
+
+@Composable
+private fun LessonDetailScreen(
+    unit: LessonUnit,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background,
+    ) {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(16.dp),
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            item {
+                OutlinedButton(onClick = onBack) {
+                    Text("Назад към курса")
+                }
+            }
+
+            item {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    ),
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                        modifier = Modifier.padding(20.dp),
+                    ) {
+                        Text(
+                            text = unit.title,
+                            style = MaterialTheme.typography.headlineMedium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            fontWeight = FontWeight.Bold,
+                        )
+                        Text(
+                            text = unit.page?.let { "стр. $it" } ?: "входен преговор",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        )
+                        Text(
+                            text = "Урокът тренира разговор по телефона, уговаряне на среща и учтиво изразяване на неразбиране.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        )
+                    }
+                }
+            }
+
+            item {
+                DetailBlock(
+                    title = "Образец",
+                    items = listOf(unit.sampleDialogue),
+                )
+            }
+
+            item {
+                DetailBlock(
+                    title = "Ключови фрази",
+                    items = unit.keyPhrases,
+                )
+            }
+
+            item {
+                DetailBlock(
+                    title = "Практика",
+                    items = unit.practiceTasks,
+                )
+            }
+
+            item {
+                DetailBlock(
+                    title = "Проверка на уменията",
+                    items = unit.checkpoints,
+                )
+            }
+
+            item {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.padding(18.dp),
+                    ) {
+                        Text(
+                            text = "Опора за говорене",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.primary,
+                            fontWeight = FontWeight.SemiBold,
+                        )
+                        Text(
+                            text = "Ало, Мария е. Удобно ли е да говорим? Искаш ли да се видим утре в пет? Ако не е удобно, може да се чуем по-късно.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                        )
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                        Text(
+                            text = "Мини-задача: кажи същото със свое име и промени часа на срещата.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Spacer(modifier = Modifier)
+                        Button(onClick = onBack) {
+                            Text("Към другите уроци")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DetailBlock(
+    title: String,
+    items: List<String>,
+) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+        ),
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(18.dp),
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.SemiBold,
+            )
+            items.forEach { item ->
+                Text(
+                    text = "• $item",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            }
         }
     }
 }

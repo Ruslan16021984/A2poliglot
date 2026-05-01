@@ -8,4 +8,8 @@ data class LessonUnit(
     val grammar: List<String>,
     val vocabulary: List<String>,
     val culture: String,
+    val sampleDialogue: String = "",
+    val keyPhrases: List<String> = emptyList(),
+    val practiceTasks: List<String> = emptyList(),
+    val checkpoints: List<String> = emptyList(),
 )
