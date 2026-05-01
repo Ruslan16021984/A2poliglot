@@ -4,44 +4,33 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.carbit3333333.a2bulgary.ui.theme.А2BulgaryTheme
+import com.carbit3333333.a2bulgary.course.BulgarianA2CourseRepository
+import com.carbit3333333.a2bulgary.ui.course.A2CourseScreen
+import com.carbit3333333.a2bulgary.ui.theme.A2BulgaryTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            А2BulgaryTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            A2BulgaryTheme {
+                A2CourseApp()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun A2CourseApp() {
+    A2CourseScreen(units = BulgarianA2CourseRepository.units)
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    А2BulgaryTheme {
-        Greeting("Android")
+fun A2CoursePreview() {
+    A2BulgaryTheme {
+        A2CourseApp()
     }
 }
