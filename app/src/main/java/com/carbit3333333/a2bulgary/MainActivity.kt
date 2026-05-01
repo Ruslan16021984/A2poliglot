@@ -5,14 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.carbit3333333.a2bulgary.course.BulgarianA2CourseRepository
-import com.carbit3333333.a2bulgary.course.LessonUnit
-import com.carbit3333333.a2bulgary.ui.course.A2CourseScreen
+import com.carbit3333333.a2bulgary.navigation.AppNavGraph
 import com.carbit3333333.a2bulgary.ui.theme.A2BulgaryTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,28 +15,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             A2BulgaryTheme {
-                A2CourseApp()
+                A2BulgaryApp()
             }
         }
     }
 }
 
 @Composable
-fun A2CourseApp() {
-    var selectedUnit by remember { mutableStateOf<LessonUnit?>(null) }
-
-    A2CourseScreen(
-        units = BulgarianA2CourseRepository.units,
-        selectedUnit = selectedUnit,
-        onLessonOpen = { selectedUnit = it },
-        onBackToCourse = { selectedUnit = null },
-    )
+fun A2BulgaryApp() {
+    AppNavGraph()
 }
 
 @Preview(showBackground = true)
 @Composable
-fun A2CoursePreview() {
+fun A2BulgaryPreview() {
     A2BulgaryTheme {
-        A2CourseApp()
+        A2BulgaryApp()
     }
 }

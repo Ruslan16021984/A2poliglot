@@ -1,5 +1,7 @@
 # A2 Course Foundation Design
 
+> Superseded by `2026-05-01-a2-a1-architecture-alignment-design.md`. This document captures the initial prototype direction before the project was aligned to the A1 application architecture.
+
 ## Goal
 
 Turn the fresh Android project into a usable A2 Bulgarian course shell backed by real lesson data from the uploaded textbook.
