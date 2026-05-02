@@ -1,0 +1,20 @@
+[
+  { "bgWord": "ало", "ruTranslation": "алло", "lessonNumber": 2 },
+  { "bgWord": "обаждам се", "ruTranslation": "звоню", "lessonNumber": 2 },
+  { "bgWord": "среща", "ruTranslation": "встреча", "lessonNumber": 2 },
+  { "bgWord": "утре", "ruTranslation": "завтра", "lessonNumber": 2 },
+  { "bgWord": "покана", "ruTranslation": "приглашение", "lessonNumber": 2 },
+  { "bgWord": "свободен", "ruTranslation": "свободный", "lessonNumber": 2 },
+  { "bgWord": "час", "ruTranslation": "час, время", "lessonNumber": 2 },
+  { "bgWord": "кафе", "ruTranslation": "кофе", "lessonNumber": 2 },
+  { "bgWord": "тяло", "ruTranslation": "тело", "lessonNumber": 3 },
+  { "bgWord": "глава", "ruTranslation": "голова", "lessonNumber": 3 },
+  { "bgWord": "ръка", "ruTranslation": "рука", "lessonNumber": 3 },
+  { "bgWord": "крак", "ruTranslation": "нога", "lessonNumber": 3 },
+  { "bgWord": "лекар", "ruTranslation": "врач", "lessonNumber": 3 },
+  { "bgWord": "болница", "ruTranslation": "больница", "lessonNumber": 3 },
+  { "bgWord": "болка", "ruTranslation": "боль", "lessonNumber": 3 },
+  { "bgWord": "температура", "ruTranslation": "температура", "lessonNumber": 3 },
+  { "bgWord": "лекарство", "ruTranslation": "лекарство", "lessonNumber": 3 },
+  { "bgWord": "почивка", "ruTranslation": "отдых", "lessonNumber": 3 }
+]

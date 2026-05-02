@@ -79,8 +79,8 @@ fun LessonsScreen(
         onLessonClick = onLessonClick,
         onDictionaryClick = onDictionaryClick,
         onSettingsClick = onSettingsClick,
-        onUnlockAllClick = {},
-        onResetLessonsClick = {},
+        onUnlockAllClick = viewModel::unlockAllLessons,
+        onResetLessonsClick = viewModel::resetLessons,
     )
 }
 

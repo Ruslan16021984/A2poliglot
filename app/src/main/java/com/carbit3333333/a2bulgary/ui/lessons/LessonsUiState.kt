@@ -6,5 +6,6 @@ data class LessonsUiState(
     val isLoading: Boolean = false,
     val lessons: List<Lesson> = emptyList(),
     val errorMessage: String? = null,
+    val hasFullCourseAccess: Boolean = false,
     val showDeveloperActions: Boolean = false,
 )

@@ -32,6 +32,12 @@ class LessonProgressStore(
         }
     }
 
+    suspend fun unlockAllLessons(maxLessonId: Int = 20) {
+        context.lessonProgressDataStore.edit { preferences ->
+            preferences[OPENED_LESSON_ID] = maxLessonId
+        }
+    }
+
     suspend fun resetLessonUnlocks(maxLessonId: Int = 20) {
         context.lessonProgressDataStore.edit { preferences ->
             preferences[OPENED_LESSON_ID] = 1

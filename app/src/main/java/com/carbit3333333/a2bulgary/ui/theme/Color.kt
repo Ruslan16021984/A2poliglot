@@ -2,11 +2,10 @@ package com.carbit3333333.a2bulgary.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Paper = Color(0xFFF6F0E1)
-val SurfaceWarm = Color(0xFFFFFBF4)
-val ForestGreen = Color(0xFF21554A)
-val DeepTeal = Color(0xFF4B6A63)
-val ClayRed = Color(0xFFB65C46)
-val Ink = Color(0xFF1E2A27)
-val Mist = Color(0xFFE2E8DF)
-val NightForest = Color(0xFF142522)
+val Purple80 = Color(0xFFD0BCFF)
+val PurpleGrey80 = Color(0xFFCCC2DC)
+val Pink80 = Color(0xFFEFB8C8)
+
+val Purple40 = Color(0xFF6650A4)
+val PurpleGrey40 = Color(0xFF625B71)
+val Pink40 = Color(0xFF7D5260)

@@ -1,10 +1,12 @@
 package com.carbit3333333.a2bulgary.viewmodel
 
 import android.app.Application
+import android.content.pm.ApplicationInfo
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.carbit3333333.a2bulgary.data.billing.PurchaseAccessStore
 import com.carbit3333333.a2bulgary.data.LessonProgressStore
 import com.carbit3333333.a2bulgary.data.LessonRepository
 import com.carbit3333333.a2bulgary.ui.lessons.LessonsUiState
@@ -17,9 +19,12 @@ import kotlinx.coroutines.launch
 class LessonsViewModel(
     application: Application,
 ) : AndroidViewModel(application) {
+    private val isDebugBuild =
+        (application.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
 
     private val repository = LessonRepository(application)
     private val progressStore = LessonProgressStore(application)
+    private val purchaseAccessStore = PurchaseAccessStore(application)
 
     private val _uiState = MutableStateFlow(LessonsUiState(isLoading = true))
     val uiState: StateFlow<LessonsUiState> = _uiState.asStateFlow()
@@ -34,12 +39,13 @@ class LessonsViewModel(
 
             combine(
                 progressStore.openedLessonIdFlow,
+                purchaseAccessStore.hasFullCourseAccessFlow,
                 progressStore.getLessonResultsFlow(lessonIds),
-            ) { openedLessonId, savedResults ->
+            ) { openedLessonId, hasFullCourseAccess, savedResults ->
                 val lessons = repository.getLessons().map { lesson ->
                     val savedResult = savedResults[lesson.id]
                     lesson.copy(
-                        isLocked = lesson.id > openedLessonId,
+                        isLocked = !hasFullCourseAccess && lesson.id > openedLessonId,
                         isCompleted = savedResult?.isPassed == true,
                         bestScore = savedResult?.bestScore,
                         currentScore = savedResult?.currentScore,
@@ -51,10 +57,31 @@ class LessonsViewModel(
                 LessonsUiState(
                     lessons = lessons,
                     isLoading = false,
+                    hasFullCourseAccess = hasFullCourseAccess,
+                    showDeveloperActions = isDebugBuild,
                 )
             }.collect { state ->
                 _uiState.value = state
             }
+        }
+    }
+
+    fun unlockAllLessons() {
+        if (!isDebugBuild) return
+        viewModelScope.launch {
+            progressStore.unlockAllLessons(
+                maxLessonId = repository.getLessons().maxOfOrNull { it.id } ?: 1
+            )
+        }
+    }
+
+    fun resetLessons() {
+        if (!isDebugBuild) return
+        viewModelScope.launch {
+            progressStore.resetLessonUnlocks(
+                maxLessonId = repository.getLessons().maxOfOrNull { it.id } ?: 1
+            )
+            purchaseAccessStore.setFullCourseAccess(false)
         }
     }
 
