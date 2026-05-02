@@ -1,3 +1,52 @@
 <resources>
     <string name="app_name">A2 Bulgarski</string>
+
+    <string name="common_back">Назад</string>
+    <string name="common_cancel">Отмена</string>
+    <string name="common_loading">Загрузка...</string>
+    <string name="common_error">Ошибка</string>
+    <string name="common_open">Открыть</string>
+    <string name="common_check">Проверить</string>
+    <string name="common_listen">Слушать</string>
+
+    <string name="lessons_list_title">Список уроков</string>
+    <string name="lessons_list_subtitle">Продолжай обучение с того места, где остановился</string>
+    <string name="lessons_stat_available">Доступно</string>
+    <string name="lessons_stat_in_progress">В процессе</string>
+    <string name="lessons_stat_completed">Завершено</string>
+    <string name="lessons_dictionary_title">Мои слова</string>
+    <string name="lessons_dictionary_subtitle">Открой личный словарь и запусти тренировку по своим словам.</string>
+    <string name="lessons_unlock_all">Открыть все</string>
+    <string name="lessons_reset">Сбросить</string>
+    <string name="lessons_progress_locked">Прогресс: недоступно</string>
+    <string name="lessons_progress_value">Прогресс: %1$d/%2$d (%3$d%%)</string>
+    <string name="lessons_progress_empty">Прогресс: 0%%</string>
+    <string name="lessons_result_locked">Откроется после прохождения предыдущего урока</string>
+    <string name="lessons_result_passed">Результат: пройден</string>
+    <string name="lessons_result_score">Результат: %1$s</string>
+    <string name="lessons_result_not_started">Результат: ещё не проходили</string>
+    <string name="lessons_locked_dialog_title">Урок пока закрыт</string>
+    <string name="lessons_locked_dialog_message">Пройдите предыдущий урок не ниже чем на 4.5 балла или откройте полный доступ в настройках.</string>
+    <string name="lessons_locked_dialog_open_settings">К настройкам</string>
+
+    <string name="settings_more_options">Открыть настройки</string>
+
+    <string name="lesson_not_found">Урок не найден</string>
+    <string name="lesson_theory_title">Теория</string>
+    <string name="lesson_verb_endings_title">Окончания глаголов</string>
+    <string name="lesson_start_exercises">Начать упражнения</string>
+    <string name="lesson_endings_attention">Обрати внимание, как меняются окончания:</string>
+
+    <string name="lesson_session_wrong_continue">Нажмите на экран, чтобы перейти к следующему тесту.</string>
+    <string name="lesson_session_no_exercises">Нет упражнений</string>
+    <string name="lesson_session_select_words">Выберите слова</string>
+    <string name="lesson_session_voice_input">Голосовой ввод ответа</string>
+    <string name="lesson_session_voice_prompt">Скажите ответ по-болгарски</string>
+    <string name="lesson_session_voice_unavailable">Голосовой ввод недоступен на этом устройстве</string>
+    <string name="lesson_session_voice_no_match">Не удалось распознать подходящие слова</string>
+    <string name="lesson_session_praise_bravo">Браво!</string>
+    <string name="lesson_session_praise_super">Супер!</string>
+    <string name="lesson_session_praise_wonderful">Чудесно!</string>
+    <string name="lesson_session_praise_excellent">Отлично!</string>
+    <string name="lesson_session_praise_talent">Талант!</string>
 </resources>

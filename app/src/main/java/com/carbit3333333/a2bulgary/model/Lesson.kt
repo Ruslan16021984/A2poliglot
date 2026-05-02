@@ -14,4 +14,11 @@ data class Lesson(
     val currentScore: Float? = null,
     val currentProgress: Int = 0,
     val totalProgress: Int = 0,
-)
+) {
+    val progressPercent: Int
+        get() = if (totalProgress > 0) {
+            (currentProgress * 100) / totalProgress
+        } else {
+            0
+        }
+}
